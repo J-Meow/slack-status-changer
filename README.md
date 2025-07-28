@@ -1,1 +1,2 @@
-# slack-name-changer
+# slack-status-changer
+
