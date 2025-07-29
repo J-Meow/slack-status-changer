@@ -23,10 +23,19 @@ async function setStatus(
         ).json()
     )
 }
-await setStatus(
-    ":terminal:",
-    "This was set with a tool I'm making to set Slack statuses",
-    prompt("xoxc pls:")!,
-    prompt("xoxd pls:")!,
-    prompt("subdomain of your slack account:")!
-)
+const xoxc = prompt("xoxc pls:")!
+const xoxd = prompt("xoxd pls:")!
+const subdomain = prompt("subdomain of your slack account:")!
+setInterval(async () => {
+    const time = new Date()
+    const currentClockTimeRounded =
+        (((time.getHours() + 11) % 12) + 1).toString() +
+        (time.getMinutes() >= 30 ? "30" : "")
+    await setStatus(
+        ":clock" + currentClockTimeRounded + ":",
+        `It's currently ${((time.getHours() + 11) % 12) + 1}:${time.getMinutes().toString().padStart(2, "0")} ${time.getHours() >= 12 ? "PM" : "AM"} for me.`,
+        xoxc,
+        xoxd,
+        subdomain
+    )
+}, 6000)
