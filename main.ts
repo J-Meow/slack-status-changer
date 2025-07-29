@@ -23,9 +23,15 @@ async function setStatus(
         ).json()
     )
 }
-const xoxc = prompt("xoxc pls:")!
-const xoxd = prompt("xoxd pls:")!
-const subdomain = prompt("subdomain of your slack account:")!
+const xoxc = Deno.env.has("SLACK_XOXC")
+    ? Deno.env.get("SLACK_XOXC")!
+    : prompt("xoxc pls:")!
+const xoxd = Deno.env.has("SLACK_XOXD")
+    ? Deno.env.get("SLACK_XOXD")!
+    : prompt("xoxd pls:")!
+const subdomain = Deno.env.has("SLACK_SUBDOMAIN")
+    ? Deno.env.get("SLACK_SUBDOMAIN")!
+    : prompt("subdomain of your slack account:")!
 setInterval(async () => {
     const time = new Date()
     const currentClockTimeRounded =
